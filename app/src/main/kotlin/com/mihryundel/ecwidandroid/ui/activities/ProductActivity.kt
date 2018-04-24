@@ -16,7 +16,6 @@ import com.mihryundel.ecwidandroid.R
 import com.mihryundel.ecwidandroid.mvp.model.Product
 import com.mihryundel.ecwidandroid.mvp.presenters.ProductPresenter
 import com.mihryundel.ecwidandroid.mvp.views.ProductView
-import com.mihryundel.ecwidandroid.utils.formatDate
 import kotlinx.android.synthetic.main.activity_product.*
 
 class ProductActivity : MvpAppCompatActivity(), ProductView {
@@ -55,23 +54,10 @@ class ProductActivity : MvpAppCompatActivity(), ProductView {
     }
 
     override fun showProduct(product: Product) {
-        tvProductDate.text = formatDate(product.changedAt)
         etTitle.setText(product.title)
-        etText.setText(product.text)
-    }
-
-    override fun showProductInfoDialog(productInfo: String) {
-        productInfoDialog = MaterialDialog.Builder(this)
-                .title(R.string.product_info)
-                .positiveText(R.string.ok)
-                .content(productInfo)
-                .onPositive { materialDialog, dialogAction -> presenter.hideProductInfoDialog() }
-                .cancelListener { presenter.hideProductInfoDialog() }
-                .show()
-    }
-
-    override fun hideProductInfoDialog() {
-        productInfoDialog?.dismiss()
+        etDescription.setText(product.text)
+        etPrice.setText(product.price.toString())
+        etBalance.setText(product.balance.toString())
     }
 
     override fun showProductDeleteDialog() {
@@ -110,11 +96,10 @@ class ProductActivity : MvpAppCompatActivity(), ProductView {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menuSaveProduct -> presenter.saveProduct(etTitle.text.toString(), etText.text.toString())
+            R.id.menuSaveProduct -> presenter.saveProduct(etTitle.text.toString(), etDescription.text.toString(),
+                    etPrice.text.toString().toDouble(), etBalance.text.toString().toInt() )
 
             R.id.menuDeleteProduct -> presenter.showProductDeleteDialog()
-
-            R.id.menuProductInfo -> presenter.showProductInfoDialog()
         }
         return super.onOptionsItemSelected(item)
     }

@@ -7,7 +7,7 @@ import java.util.*
 class ProductDao {
 
     fun createProduct(): Product {
-        val product = Product("New product", Date())
+        val product = Product("Новый продукт")
         product.save()
         return product
     }

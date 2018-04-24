@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Товары</string>
+    <string name="all_products_deleted">Все товары удалены</string>
+    <string name="delete">Удалить</string>
+    <string name="delete_all">Удалить все</string>
+    <string name="input_your_text">Введите описание</string>
+    <string name="no">Нет</string>
+    <string name="product_deleted">Товар удален</string>
+    <string name="product_deletion_title">Удаление товара</string>
+    <string name="product_deletion_message">Вы действительно хотите удалить этот товар?</string>
+    <string name="products_list_empty">Нет товаров</string>
+    <string name="ok">ОК</string>
+    <string name="save">Сохранить</string>
+    <string name="search">Поиск</string>
+    <string name="sort_by">Сортировать</string>
+    <string name="sort_by_title">Наименование</string>
+    <string name="sort_by_date">Дата</string>
+    <string name="title">Наименование</string>
+    <string name="price">Цена</string>
+    <string name="balance">В наличии</string>
+    <string name="yes">Да</string>
+    <string name="desription">Описание</string>
+    <string name="product_edit">Редактировать</string>
+</resources>

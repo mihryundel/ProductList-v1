@@ -11,10 +11,6 @@ interface ProductView : MvpView {
 
     fun onProductDeleted()
 
-    fun showProductInfoDialog(productInfo: String)
-
-    fun hideProductInfoDialog()
-
     fun showProductDeleteDialog()
 
     fun hideProductDeleteDialog()

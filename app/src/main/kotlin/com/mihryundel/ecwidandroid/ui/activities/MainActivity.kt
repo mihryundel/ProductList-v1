@@ -32,8 +32,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
 
         with(ItemClickSupport.addTo(productsList)) {
-            setOnItemClickListener { _, position, _ -> presenter.openProduct(position) }
-            setOnItemLongClickListener { _, position, _ -> presenter.showProductContextDialog(position); true }
+            setOnItemClickListener { _, position, _ -> presenter.showProductContextDialog(position);}
         }
 
         newProductFab.setOnClickListener { presenter.openNewProduct() }
@@ -103,24 +102,8 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         productDeleteDialog?.dismiss()
     }
 
-    override fun showProductInfoDialog(productInfo: String) {
-        productInfoDialog = MaterialDialog.Builder(this)
-                .title(R.string.product_info)
-                .positiveText(getString(R.string.ok))
-                .content(productInfo)
-                .onPositive { materialDialog, dialogAction -> presenter.hideProductInfoDialog() }
-                .cancelListener { presenter.hideProductInfoDialog() }
-                .show()
-    }
-
-    override fun hideProductInfoDialog() {
-        productInfoDialog?.dismiss()
-    }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
-
-        initSearchView(menu)
         return true
     }
 
@@ -128,18 +111,9 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         startActivity(ProductActivity.buildIntent(this, productId))
     }
 
-    private fun initSearchView(menu: Menu) {
-        val searchViewMenuItem = menu.findItem(R.id.action_search)
-        val searchView = searchViewMenuItem.actionView as SearchView
-        searchView.onQueryChange { query -> presenter.search(query) }
-        searchView.setOnCloseListener { presenter.search(""); false }
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menuDeleteAllProducts -> presenter.deleteAllProducts()
-            R.id.menuSortByName -> presenter.sortProductsBy(MainPresenter.SortProductsBy.NAME)
-            R.id.menuSortByDate -> presenter.sortProductsBy(MainPresenter.SortProductsBy.DATE)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -147,8 +121,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     private fun onContextDialogItemClick(contextItemPosition: Int, productPosition: Int) {
         when (contextItemPosition) {
             0 -> presenter.openProduct(productPosition)
-            1 -> presenter.showProductInfo(productPosition)
-            2 -> presenter.showProductDeleteDialog(productPosition)
+            1 -> presenter.showProductDeleteDialog(productPosition)
         }
     }
 

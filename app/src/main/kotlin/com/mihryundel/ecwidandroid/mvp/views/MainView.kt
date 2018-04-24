@@ -18,10 +18,6 @@ interface MainView : MvpView {
 
     fun onProductDeleted()
 
-    fun showProductInfoDialog(productInfo: String)
-
-    fun hideProductInfoDialog()
-
     fun showProductDeleteDialog(productPosition: Int)
 
     fun hideProductDeleteDialog()

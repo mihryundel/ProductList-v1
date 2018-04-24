@@ -30,10 +30,11 @@ class ProductPresenter(val productId: Long) : MvpPresenter<ProductView>() {
         viewState.showProduct(product)
     }
 
-    fun saveProduct(title: String, text: String) {
+    fun saveProduct(title: String, text: String, price: Double, balance: Int) {
         product.title = title
         product.text = text
-        product.changedAt = Date()
+        product.price = price
+        product.balance = balance
         productDao.saveProduct(product)
         EventBus.getDefault().post(ProductEditAction(product.id))
         viewState.onProductSaved()
@@ -54,14 +55,6 @@ class ProductPresenter(val productId: Long) : MvpPresenter<ProductView>() {
 
     fun hideProductDeleteDialog() {
         viewState.hideProductDeleteDialog()
-    }
-
-    fun showProductInfoDialog() {
-        viewState.showProductInfoDialog(product.getInfo())
-    }
-
-    fun hideProductInfoDialog() {
-        viewState.hideProductInfoDialog()
     }
 
 }

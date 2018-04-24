@@ -12,9 +12,4 @@
         android:title="@string/delete"
         app:showAsAction="never"
         />
-    <item
-        android:id="@+id/menuProductInfo"
-        android:title="@string/product_info"
-        app:showAsAction="never"
-        />
 </menu>

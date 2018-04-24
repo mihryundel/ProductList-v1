@@ -16,21 +16,21 @@ class Product : Model {
     var title: String? = null
     @Column(name = "text")
     var text: String? = null
-    @Column(name = "created_at")
-    var createAt: Date? = null
-    @Column(name = "change_at")
-    var changedAt: Date? = null
+    @Column(name = "price")
+    var price: Double? = null
+    @Column(name = "balance")
+    var balance: Int? = null
 
-    constructor(title: String, createDate: Date) {
+    constructor(title: String) {
         this.title = title
-        this.createAt = createDate
-        this.changedAt = createDate
+        this.price = 0.0
+        this.balance = 0
     }
 
     constructor()
 
-    fun getInfo(): String = "Title:\n$title\n" +
-            "Created at:\n${formatDate(createAt)}\n" +
-            "Changed at:\n${formatDate(changedAt)}"
+    fun getInfo(): String = "Название:\n$title\n" +
+            "Цена:\n${price}\n" +
+            "Остаток:\n${balance}"
 
 }

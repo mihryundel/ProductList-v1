@@ -9,8 +9,6 @@ import com.mihryundel.ecwidandroid.bus.ProductEditAction
 import com.mihryundel.ecwidandroid.mvp.model.Product
 import com.mihryundel.ecwidandroid.mvp.model.ProductDao
 import com.mihryundel.ecwidandroid.mvp.views.MainView
-import com.mihryundel.ecwidandroid.utils.getProductsSortMethodName
-import com.mihryundel.ecwidandroid.utils.setProductsSortMethod
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.*
@@ -20,9 +18,6 @@ import javax.inject.Inject
 class MainPresenter : MvpPresenter<MainView>() {
 
     enum class SortProductsBy : Comparator<Product> {
-        DATE {
-            override fun compare(product1: Product, product2: Product) = product1.changedAt!!.compareTo(product2.changedAt)
-        },
         NAME {
             override fun compare(product1: Product, product2: Product) = product1.title!!.compareTo(product2.title!!)
         },
@@ -77,7 +72,6 @@ class MainPresenter : MvpPresenter<MainView>() {
 
     fun sortProductsBy(sortMethod: SortProductsBy) {
         productsList.sortWith(sortMethod)
-        setProductsSortMethod(sortMethod.toString())
         viewState.updateView()
     }
 
@@ -112,14 +106,6 @@ class MainPresenter : MvpPresenter<MainView>() {
         viewState.hideProductDeleteDialog()
     }
 
-    fun showProductInfo(position: Int) {
-        viewState.showProductInfoDialog(productsList[position].getInfo())
-    }
-
-    fun hideProductInfoDialog() {
-        viewState.hideProductInfoDialog()
-    }
-
     private fun loadAllProducts() {
         productsList = productDao.loadAllProducts()
         Collections.sort(productsList, getCurrentSortMethod())
@@ -127,9 +113,8 @@ class MainPresenter : MvpPresenter<MainView>() {
     }
 
     private fun getCurrentSortMethod(): SortProductsBy {
-        val defaultSortMethodName = SortProductsBy.DATE.toString()
-        val currentSortMethodName = getProductsSortMethodName(defaultSortMethodName)
-        return SortProductsBy.valueOf(currentSortMethodName)
+        val defaultSortMethodName = SortProductsBy.NAME.toString()
+        return SortProductsBy.valueOf(defaultSortMethodName)
     }
 
     private fun getProductPositionById(productId: Long) = productsList.indexOfFirst { it.id == productId }
