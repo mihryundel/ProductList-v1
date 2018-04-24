@@ -20,8 +20,8 @@ class ProductsAdapter(private val productsList: List<Product>) : RecyclerView.Ad
     fun onBindViewHolder(viewHolder: ProductsAdapter.ViewHolder, i: Int) {
         val product = productsList[i]
         viewHolder.productTitle.text = product.title
-        viewHolder.productPrice.text = (product.price.toString() + " р.")
-        viewHolder.productBalance.text = (product.balance.toString() + " шт.")
+        viewHolder.productPrice.text = (product.price.toString())
+        viewHolder.productBalance.text = (product.balance.toString())
     }
 
     override fun getItemCount(): Int {
